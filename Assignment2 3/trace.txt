@@ -1,0 +1,81 @@
+Program trace
+
+To run the printer you must enter ./printer x &, where x is the number of slots in the shared buffer and & is for running the printer in the background. 
+To run a client you must enter ./client id pages & where "id" is an integer that represents the client id and "pages" represents the number of pages to print. Add & to run the client in the background. Morevover, each page takes about 1 second to be printed. To terminate the printer, enter ps to know the id of the printer process, then kill id, where id is the id of the printer process.
+Also, I used a script called test-3.sh which has the following commands:
+
+#/bin/sh
+./client 1 2 &
+./client 2 3 &
+./client 3 1 &
+./client 4 6 &
+./client 5 1 &
+./client 6 4 &
+./client 7 8 &
+./client 8 1 &
+
+
+You can find the script test-3.sh in the folder I submitted.
+
+NOTE: clients do not arrive in the order they appear in the script. The order is determined by the system in which you run the script.
+
+Example:
+>>./printer 4 &
+Waiting for clients.
+./test-3.sh
+
+Client 1, has 2 pages to print. puts request in Buffer[0]
+
+Printer starts printing job id 1, the job duration is 2, the job has 2 page(s) from Buffer[0].
+
+Client 2, has 3 pages to print. puts request in Buffer[1]
+
+Client 3, has 1 pages to print. puts request in Buffer[2]
+
+Client 4, has 6 pages to print. puts request in Buffer[3]
+
+Client 5, has 1 pages to print. puts request in Buffer[0]
+
+Client 6, has 4 pages to print,buffer full,sleeps.
+
+Client 7, has 8 pages to print,buffer full,sleeps.
+
+Client 8, has 1 pages to print,buffer full,sleeps.
+>>
+Printer finishes printing job id 1,  2 page(s) printed from Buffer[0].
+
+Printer starts printing job id 2, the job duration is 3, the job has 3 page(s) from Buffer[1].
+
+Client 6 wakes up, puts request in Buffer[1]
+
+Printer finishes printing job id 2,  3 page(s) printed from Buffer[1].
+
+Printer starts printing job id 3, the job duration is 1, the job has 1 page(s) from Buffer[2].
+
+Client 7 wakes up, puts request in Buffer[2]
+
+Printer finishes printing job id 3,  1 page(s) printed from Buffer[2].
+
+Printer starts printing job id 4, the job duration is 6, the job has 6 page(s) from Buffer[3].
+
+Client 8 wakes up, puts request in Buffer[3]
+
+Printer finishes printing job id 4,  6 page(s) printed from Buffer[3].
+
+Printer starts printing job id 5, the job duration is 1, the job has 1 page(s) from Buffer[0].
+
+Printer finishes printing job id 5,  1 page(s) printed from Buffer[0].
+
+Printer starts printing job id 6, the job duration is 4, the job has 4 page(s) from Buffer[1].
+
+Printer finishes printing job id 6,  4 page(s) printed from Buffer[1].
+
+Printer starts printing job id 7, the job duration is 8, the job has 8 page(s) from Buffer[2].
+
+Printer finishes printing job id 7,  8 page(s) printed from Buffer[2].
+
+Printer starts printing job id 8, the job duration is 1, the job has 1 page(s) from Buffer[3].
+
+Printer finishes printing job id 8,  1 page(s) printed from Buffer[3].
+
+
