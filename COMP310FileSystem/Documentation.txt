@@ -1,0 +1,88 @@
+Hi,
+My name is Andres Felipe Rincon Gamboa and my ID is 260584148.
+I am submitting the following files, I added the test files given by the TAs:
+
+-sfs_api.c main file system implementation
+-sfs_test.c  Jit's file.
+-sfs_test2.c Jit's file.
+-fuse_wrappers.c  Jit's file.
+-jit_test.c  Jit's file.
+-Makefile : Jit's file.
+- disk_emu.c Jit's file.
+
+
+header files:
+- sfs_api.h
+- disk_emu.h
+If you get this error:
+Fatal error: can't create disk_emu.o: Disk quota exceeded
+you will have to delete sfs_disk.disk from the directory.
+Also, there shouldnt be errors from the test files.
+
+
+I succesfully passed the tests sfs_test.c, sfs_test2.c Jit's and jit_test.c. Also I compiled my file system in the  UBuntu
+Trottier machines and it works. 
+After doing a make clean and make, you should see the executable created ./Andres_Rincon_sfs.
+
+Once the file system is compiled you should do:
+1 . For sfs_test.c make sure to have this line uncommented SOURCES= disk_emu.c sfs_api.c sfs_test.c sfs_api.h.
+  Then to execute the program do make clean, make, then ./Andres_Rincon_sfs. This might take a while and at the end there shouldnt be errors.
+2.  For sfs_tes2.c and jit_test.c is the same as (1). Just uncomment the correct lines corresponding to the names of the files you want to test.
+
+3. To test the fuse_wrappers.c make sure you created a directory in /tmp like this: mkdir -m 777 testing1  .
+   Then, do make clean followed by a make. You should then execute in the terminal ./Andres_Rincon_sfs /tmp/testing1.
+   Wait for the command to finish. Once it finished, before going to the directory /tmp/testing, check the environment variable LD_LIBRARY_PATH, by executing "printenv LD_LIBRARY_PATH" in the terminal. This variable should look like this and include the following libraries:
+
+
+LD_LIBRARY_PATH=/usr/local/pkgs/gurobi502/linux64/lib:/lib:/lib/i386-linux-gnu/libc.so.6:/lib/x86_64-linux-gnu/libc.so.6:/lib32/libc.so.6:/libx32/libc.so.6:/usr/lib/x86_64-linux-gnu/libsigsegv.so.2:/usr/lib/x86_64-linux-gnu/libsigsegv.so.2.0.3:/lib/i386-linux-gnu/libselinux.so.1:/lib/x86_64-linux-gnu/libselinux.so.1:/usr/lib/x86_64-linux-gnu/libselinux.so
+
+
+ If it doesnt, the file system  might not execute properly commands like "ls". So, you will have to modify in the direcotry ~ the files .profile and .bashrc by adding a command like this:
+ export LD_LIBRARY_PATH=/usr/local/pkgs/gurobi502/linux64/lib:/lib:/lib/i386-linux-gnu/libc.so.6:/lib/x86_64-linux-gnu/libc.so.6:/lib32/libc.so.6:/libx32/libc.so.6:/usr/lib/x86_64-linux-gnu/libsigsegv.so.2:/usr/lib/x86_64-linux-gnu/libsigsegv.so.2.0.3:/lib/i386-linux-gnu/libselinux.so.1:/lib/x86_64-linux-gnu/libselinux.so.1:/usr/lib/x86_64-linux-gnu/libselinux.so
+
+ 4. Once the environment variable LD_LIBRARY_PATH is set, you will have to reboot and start again from 1 or 3. 
+ 5. If you are here do cd /tmp/testing1, everything should work. Also, if you want to see the contents of the file system disk sfs_disk.disk, do cat sfs_disk.disk instead of vi sfs_disk.disk, vi sfs_disk.disk takes a lot of time to run, also cat sfs_disk might take a lot of time to run, so you should just stop it by doing ctrl z.
+
+
+ 6. Finally once you are in /tmp/testing1 do this:
+
+
+
+
+[arinco1][lab1-7][/tmp]THEBESTCOMPANYINTHEWORLD>mkdir -m 777 testing1
+[arinco1][lab1-7][/tmp]THEBESTCOMPANYINTHEWORLD>cd testing1
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>ls
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>echo "its working 1" >> file1.txt
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>echo "its working 2" >> file2.txt
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>echo "its working 3" >> file3.txt
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>ls
+file1.txt  file2.txt  file3.txt
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>cat *
+its working 1
+its working 2
+its working 3
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>rm -f file1.txt
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>ls
+file2.txt  file3.txt
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>cat *
+its working 2
+its working 3
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>rm -f file2.txt
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>ls
+file3.txt
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>cat *
+its working 3
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>rm -f file3.txt
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>ls
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>ls
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>ls
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>ls
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>cat * <- since there ar no files, for some reason it creates a file called *.
+[arinco1][lab1-7][/tmp/testing1]THEBESTCOMPANYINTHEWORLD>ls      <- XD XD
+*
+
+Thanks,
+If you have questions or it doesnt work, email me please to andres.rincon@mail.mcgill.ca
+
+
+  
